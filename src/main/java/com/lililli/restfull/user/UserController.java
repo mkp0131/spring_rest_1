@@ -2,6 +2,8 @@ package com.lililli.restfull.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,13 +36,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public int getMethodName(@PathVariable int id) {
+    public int deleteUser(@PathVariable int id) {
         User user = service.deleteById(id);
         if (user == null) {
             return 0;
